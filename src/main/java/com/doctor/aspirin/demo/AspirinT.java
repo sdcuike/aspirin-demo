@@ -32,8 +32,8 @@ public class AspirinT {
         String nick = "doctor";
         String replyTo = "sdcuike@aol.com";
 
-        List<String> users = Arrays.asList("sdcuike@aol.com");
-        List<String> users2 = Arrays.asList("sdcuike@qq.com");
+        List<String> users = Arrays.asList("xx@qq.com");
+        List<String> users2 = Arrays.asList("xx@qq.com");
 
         AspirinListenerImpl listenerImpl = new AspirinListenerImpl();
         listenerImpl.init();
@@ -42,7 +42,7 @@ public class AspirinT {
         while (n-- > 0) {
             for (String u : users) {
                 MimeMessage message = AspirinInternal.createNewMimeMessage();
-
+                message.setHeader(Aspirin.HEADER_MAIL_ID, "110");
                 message.addRecipient(Message.RecipientType.TO, new InternetAddress(u));
                 message.setSubject(" - test to show it doesn't shut down");
                 message.setText("This is the text");
