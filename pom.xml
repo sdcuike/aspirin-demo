@@ -26,7 +26,7 @@
         <dependency>
             <groupId>org.masukomi</groupId>
             <artifactId>aspirin</artifactId>
-            <version>0.10.03</version>
+            <version>0.11.01</version>
         </dependency>
         <dependency>
             <groupId>com.google.guava</groupId>
