@@ -42,7 +42,7 @@ public class SendMailDemo {
         mimeMessage.setSubject("test hello");
         mimeMessage.setSender(new InternetAddress("doctor@qq.com"));
         mimeMessage.setFrom(new InternetAddress("doctorq@qqq.com"));
-        mimeMessage.setRecipient(RecipientType.TO, new InternetAddress("cuikexiang@quancheng-ec.com"));
+        mimeMessage.setRecipient(RecipientType.TO, new InternetAddress("ddd@quancheng-ec.com"));
         mimeMessage.setText("test send mail", "utf-8");
         sendMail(mimeMessage);
 
