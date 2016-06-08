@@ -1,7 +1,7 @@
 package com.doctor.javamail.util;
 
 /**
- * @author cuikexiang
+ * @author sdcuike
  *
  *         Create At 2016年6月8日 下午3:04:29
  */
