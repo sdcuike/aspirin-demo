@@ -2,6 +2,7 @@ package com.doctor.javamail.demo;
 
 import java.util.Properties;
 
+import javax.mail.Address;
 import javax.mail.Message.RecipientType;
 import javax.mail.Session;
 import javax.mail.internet.InternetAddress;
@@ -28,7 +29,9 @@ public class SendMailDemo {
         mimeMessage.setSubject("test hello");
         mimeMessage.setSender(new InternetAddress("doctor@qq.com"));
         mimeMessage.setFrom(new InternetAddress("doctorq@qqq.com"));
-        mimeMessage.setRecipient(RecipientType.TO, new InternetAddress("xxxx@quancheng-ec.com"));
+        mimeMessage.setRecipient(RecipientType.CC, new InternetAddress("java@x-ec.com"));
+        mimeMessage.setRecipient(RecipientType.TO, new InternetAddress("x@c-ec.com"));
+        mimeMessage.setReplyTo(new Address[] { new InternetAddress("java@x-ec.com") });
         mimeMessage.setText("test send mail", "utf-8");
         Pair<Boolean, String> result = SendEmailUtil.sendMail(mimeMessage, session);
         System.out.println("send result:" + result);

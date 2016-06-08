@@ -41,9 +41,14 @@ public final class SendEmailUtil {
 
     private static final String SMTP_PROTOCOL_PREFIX = "smtp://";
 
+    private static final String mail_mime_charset = "mail.mime.charset";
+    private static final String mail_smtp_connectiontimeout = "mail.smtp.connectiontimeout";
+    private static final String mail_smtp_timeout = "mail.smtp.timeout";
+    private static final String mail_smtp_localhost = "mail.smtp.localhost";
+
     public static Session getSession(Properties properties) {
         Properties config = getConfig(properties);
-        return Session.getDefaultInstance(config);
+        return Session.getInstance(config, null);
     }
 
     public static MimeMessage createMimeMessage() {
@@ -63,7 +68,7 @@ public final class SendEmailUtil {
             String currentRecipient = address.toString();
             String hostName = currentRecipient.substring(currentRecipient.lastIndexOf("@") + 1);
             Set<URLName> mxRecordsForHost = getMXRecordsForHost(hostName);
-
+            log.debug("currentRecipient:{} mxRecordsForHost:{}", currentRecipient, mxRecordsForHost);
             boolean sendSuccessfully = false;
             Iterator<URLName> recordIterator = mxRecordsForHost.iterator();
             while (!sendSuccessfully && recordIterator.hasNext()) {
@@ -88,7 +93,7 @@ public final class SendEmailUtil {
                     pair.setLeft(Boolean.TRUE);
                     pair.setRight(lastServerResponse);
                 } catch (Exception e) {
-                    log.debug("send", e);
+                    log.debug("send fail", e);
                     pair.setRight(getCause(e));
                 } finally {
                     if (transport != null) {
