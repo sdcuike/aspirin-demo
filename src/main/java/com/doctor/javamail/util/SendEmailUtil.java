@@ -8,6 +8,7 @@ import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -40,9 +41,17 @@ public final class SendEmailUtil {
 
     private static final String SMTP_PROTOCOL_PREFIX = "smtp://";
 
-    public static final Properties properties = new Properties();;
+    public static Session getSession(Properties properties) {
+        Properties config = getConfig(properties);
+        return Session.getDefaultInstance(config);
+    }
 
-    public static Pair<Boolean, String> sendMail(MimeMessage mimeMessage) throws MessagingException, IOException {
+    public static MimeMessage createMimeMessage() {
+        MimeMessage mMesg = new MimeMessage((Session) null);
+        return mMesg;
+    }
+
+    public static Pair<Boolean, String> sendMail(MimeMessage mimeMessage, Session session) throws MessagingException, IOException {
         PairBuider<Boolean, String> pair = new PairBuider<>();
         pair.setLeft(Boolean.FALSE);
         Address[] allRecipients = mimeMessage.getAllRecipients();
@@ -60,8 +69,6 @@ public final class SendEmailUtil {
             while (!sendSuccessfully && recordIterator.hasNext()) {
                 SMTPTransport transport = null;
                 try {
-                    Session session = Session.getDefaultInstance(properties);
-
                     MimeMessage message = new MimeMessage(mimeMessage);
                     Properties props = session.getProperties();
 
@@ -81,7 +88,7 @@ public final class SendEmailUtil {
                     pair.setLeft(Boolean.TRUE);
                     pair.setRight(lastServerResponse);
                 } catch (Exception e) {
-                    log.error("send", e);
+                    log.debug("send", e);
                     pair.setRight(getCause(e));
                 } finally {
                     if (transport != null) {
@@ -92,6 +99,14 @@ public final class SendEmailUtil {
             }
         }
         return pair.build();
+    }
+
+    private static Properties getConfig(Properties properties) {
+        Properties prop = System.getProperties();
+        for (Entry<Object, Object> es : properties.entrySet()) {
+            prop.put(es.getKey(), es.getValue());
+        }
+        return prop;
     }
 
     private static Set<URLName> getMXRecordsForHost(String hostName) throws TextParseException {

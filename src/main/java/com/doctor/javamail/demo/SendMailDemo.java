@@ -1,5 +1,7 @@
 package com.doctor.javamail.demo;
 
+import java.util.Properties;
+
 import javax.mail.Message.RecipientType;
 import javax.mail.Session;
 import javax.mail.internet.InternetAddress;
@@ -19,13 +21,16 @@ import com.doctor.javamail.util.SendEmailUtil;
 public class SendMailDemo {
 
     public static void main(String[] args) throws Throwable {
-        MimeMessage mimeMessage = new MimeMessage((Session) null);
+
+        Properties properties = new Properties();
+        Session session = SendEmailUtil.getSession(properties);
+        MimeMessage mimeMessage = SendEmailUtil.createMimeMessage();
         mimeMessage.setSubject("test hello");
         mimeMessage.setSender(new InternetAddress("doctor@qq.com"));
         mimeMessage.setFrom(new InternetAddress("doctorq@qqq.com"));
         mimeMessage.setRecipient(RecipientType.TO, new InternetAddress("xxxx@quancheng-ec.com"));
         mimeMessage.setText("test send mail", "utf-8");
-        Pair<Boolean, String> result = SendEmailUtil.sendMail(mimeMessage);
+        Pair<Boolean, String> result = SendEmailUtil.sendMail(mimeMessage, session);
         System.out.println("send result:" + result);
     }
 
