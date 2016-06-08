@@ -50,8 +50,8 @@ public class JavaMailDemo {
         mailSender.setJavaMailProperties(properties);
 
         final MimeMessage mimeMessage = mailSender.createMimeMessage();
-        // mimeMessage.setHeader("Disposition-Notification-To", "quanchengfeikong@sina.com");
-        // mimeMessage.setHeader("Return-Receipt-To", "cuikexiang@quancheng-ec.com");
+        // mimeMessage.setHeader("Disposition-Notification-To", "fsdf@sina.com");
+        // mimeMessage.setHeader("Return-Receipt-To", "sss@ss-ec.com");
         final MimeMessageHelper message = new MimeMessageHelper(mimeMessage, "UTF-8");
 
         message.setSubject("test");
