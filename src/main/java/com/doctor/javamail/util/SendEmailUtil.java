@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 import javax.mail.Address;
@@ -72,6 +73,11 @@ public final class SendEmailUtil {
             boolean sendSuccessfully = false;
             Iterator<URLName> recordIterator = mxRecordsForHost.iterator();
             while (!sendSuccessfully && recordIterator.hasNext()) {
+                try {
+                    TimeUnit.SECONDS.sleep(2);
+                } catch (InterruptedException e1) {
+
+                }
                 SMTPTransport transport = null;
                 try {
                     MimeMessage message = new MimeMessage(mimeMessage);
@@ -84,7 +90,9 @@ public final class SendEmailUtil {
                         props.put("mail.smtp.from", sender);
                     }
 
-                    transport = (SMTPTransport) session.getTransport(recordIterator.next());
+                    URLName url = recordIterator.next();
+                    log.debug("use url:{}", url);
+                    transport = (SMTPTransport) session.getTransport(url);
                     transport.connect();
                     transport.sendMessage(message, new Address[] { address });
                     sendSuccessfully = true;
