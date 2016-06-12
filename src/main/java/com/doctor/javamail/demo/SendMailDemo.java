@@ -7,6 +7,7 @@ import javax.mail.Message.RecipientType;
 import javax.mail.Session;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeUtility;
 
 import com.doctor.javamail.util.Pair;
 import com.doctor.javamail.util.SendEmailUtil;
@@ -34,16 +35,19 @@ public class SendMailDemo {
         Properties properties = new Properties();
         Session session = SendEmailUtil.getSession(properties);
         MimeMessage mimeMessage = SendEmailUtil.createMimeMessage();
-        mimeMessage.setSubject("端午节快乐");
+        mimeMessage.setSubject("Mail content denied. http://service.mail.qq.com/cgi-bin/help?subtype=1&&id=20022&&no=1000726");
 
         // 邮件真实发送地址与邮件宣称的地址不一样如何解决:setSender /setFrom设置同一地址，不同则会出现上述文档所说内容
-        mimeMessage.setSender(new InternetAddress("doctor@aol.com"));
-        mimeMessage.setFrom(new InternetAddress("doctor@aol.com"));
+        String nickName = "神秘博士";
+        // 设置Chinese nickname @see http://www.programmershare.com/2703983/
+        InternetAddress sender = new InternetAddress(MimeUtility.encodeText(nickName) + " <doctor@aol.com>");
+        mimeMessage.setSender(sender);
+        mimeMessage.setFrom(sender);
 
         // mimeMessage.setRecipient(RecipientType.CC, new InternetAddress("xx@-ec.com"));
-        mimeMessage.setRecipient(RecipientType.TO, new InternetAddress("ituring_news_001@turingbook.com"));
+        mimeMessage.setRecipient(RecipientType.TO, new InternetAddress("303286730@qq.com"));
         mimeMessage.setReplyTo(new Address[] { new InternetAddress("xxx@qq.com") });
-        mimeMessage.setText("你好，先生，端午节过的如何！", "utf-8");
+        mimeMessage.setText("Mail content denied. http://service.mail.qq.com/cgi-bin/help?subtype=1&&id=20022&&no=1000726", "utf-8");
         Pair<Boolean, String> result = SendEmailUtil.sendMail(mimeMessage, session);
         System.out.println("send result:" + result);
     }

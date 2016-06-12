@@ -54,7 +54,9 @@ public final class SendEmailUtil {
     private static final String mail_mime_charset = "mail.mime.charset";
     private static final String mail_smtp_connectiontimeout = "mail.smtp.connectiontimeout";
     private static final String mail_smtp_timeout = "mail.smtp.timeout";
+    private static final String mail_smtp_host = "mail.smtp.host";
     private static final String mail_smtp_localhost = "mail.smtp.localhost";
+    private static final String mail_smtp_debug = "mail.debug";
 
     public static Session getSession(Properties properties) {
         Properties config = getConfig(properties);
@@ -125,6 +127,12 @@ public final class SendEmailUtil {
 
     private static Properties getConfig(Properties properties) {
         Properties prop = System.getProperties();
+        prop.setProperty(mail_mime_charset, "UTF-8");
+        prop.setProperty(mail_smtp_debug, "true");
+        prop.setProperty(mail_smtp_timeout, "30000");
+        prop.setProperty(mail_smtp_connectiontimeout, "30000");
+        prop.setProperty(mail_smtp_localhost, "doctorwho.com");
+        prop.setProperty(mail_smtp_host, "doctorwho.com");
         for (Entry<Object, Object> es : properties.entrySet()) {
             prop.put(es.getKey(), es.getValue());
         }
