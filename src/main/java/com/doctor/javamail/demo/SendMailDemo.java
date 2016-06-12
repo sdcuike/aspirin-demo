@@ -46,7 +46,7 @@ public class SendMailDemo {
 
         // mimeMessage.setRecipient(RecipientType.CC, new InternetAddress("xx@-ec.com"));
         mimeMessage.setRecipient(RecipientType.TO, new InternetAddress("303286730@qq.com"));
-        mimeMessage.setReplyTo(new Address[] { new InternetAddress("xxx@qq.com") });
+        mimeMessage.setReplyTo(new Address[] { new InternetAddress("303286730@qq.com") });
         mimeMessage.setText("Mail content denied. http://service.mail.qq.com/cgi-bin/help?subtype=1&&id=20022&&no=1000726", "utf-8");
         Pair<Boolean, String> result = SendEmailUtil.sendMail(mimeMessage, session);
         System.out.println("send result:" + result);
