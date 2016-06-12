@@ -64,7 +64,8 @@ public final class SendEmailUtil {
     }
 
     public static MimeMessage createMimeMessage() {
-        MimeMessage mMesg = new MimeMessage((Session) null);
+        // MimeMessage mMesg = new MimeMessage((Session) null);
+        MimeMessage mMesg = new MimeMessageExtend((Session) null);
         return mMesg;
     }
 
