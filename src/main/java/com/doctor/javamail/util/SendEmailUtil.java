@@ -36,6 +36,9 @@ import com.sun.mail.smtp.SMTPTransport;
  * @author sdcuike
  *
  *         Create At 2016年6月8日 下午3:29:39
+ * 
+ *         https://tools.ietf.org/html/rfc5321
+ *         https://tools.ietf.org/html/rfc822#section-3.2
  */
 public final class SendEmailUtil {
     private static final Logger log = LoggerFactory.getLogger(SendMailDemo.class);
