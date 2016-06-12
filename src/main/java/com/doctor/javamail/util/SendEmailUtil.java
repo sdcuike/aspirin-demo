@@ -73,13 +73,16 @@ public final class SendEmailUtil {
         pair.setLeft(Boolean.FALSE);
         Address[] allRecipients = mimeMessage.getAllRecipients();
         if (allRecipients == null || allRecipients.length == 0) {
-            return null;
+            throw new IllegalArgumentException("Recipients is empty");
         }
 
         for (Address address : allRecipients) {
             String currentRecipient = address.toString();
             String hostName = currentRecipient.substring(currentRecipient.lastIndexOf("@") + 1);
             Set<URLName> mxRecordsForHost = getMXRecordsForHost(hostName);
+            if (mxRecordsForHost.isEmpty()) {
+                throw new IllegalArgumentException("mxRecords for " + currentRecipient + " is empty");
+            }
             log.debug("currentRecipient:{} mxRecordsForHost:{}", currentRecipient, mxRecordsForHost);
             boolean sendSuccessfully = false;
             Iterator<URLName> recordIterator = mxRecordsForHost.iterator();

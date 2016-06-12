@@ -36,7 +36,8 @@ public class SendMailDemo {
         Session session = SendEmailUtil.getSession(properties);
         MimeMessage mimeMessage = SendEmailUtil.createMimeMessage();
         // Message-ID: <597255128.0.1465725132963.JavaMail.doctor@doctorwho-MacBook-Pro.local> 会暴露你的个人信息，请修改机器hostname和用户名
-        mimeMessage.setSubject("late blessing");
+
+        mimeMessage.setSubject("The late blessing");
 
         // 邮件真实发送地址与邮件宣称的地址不一样如何解决:setSender /setFrom设置同一地址，不同则会出现上述文档所说内容
         String nickName = "神秘博士";
@@ -46,7 +47,7 @@ public class SendMailDemo {
         mimeMessage.setFrom(sender);
 
         // mimeMessage.setRecipient(RecipientType.CC, new InternetAddress("xx@-ec.com"));
-        mimeMessage.setRecipient(RecipientType.TO, new InternetAddress("303286730@qq.com"));
+        mimeMessage.setRecipient(RecipientType.TO, new InternetAddress("xxxx@qq.com"));
         mimeMessage.setReplyTo(new Address[] { new InternetAddress("xxx@qq.com") });
         mimeMessage.setText("端午颂诉着古老的传说，粽子包裹着古老的风俗，艾叶凝聚着神秘的色彩，屈原坚守着民族的气节，让我们记住特殊的日子，时刻提醒勉励自己，幸福生活，努力工作，开心每一天。 from:老崔 ", "utf-8");
         Pair<Boolean, String> result = SendEmailUtil.sendMail(mimeMessage, session);
