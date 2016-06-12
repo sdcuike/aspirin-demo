@@ -39,6 +39,12 @@ import com.sun.mail.smtp.SMTPTransport;
  * 
  *         https://tools.ietf.org/html/rfc5321
  *         https://tools.ietf.org/html/rfc822#section-3.2
+ * 
+ *         MX record:
+ *         https://dnsdb.cit.cornell.edu/explain_mx.html
+ *         http://blog.onlymyemail.com/what-is-a-mail-exchanger-mx-record/
+ *         http://support.hostgator.com/articles/specialized-help/technical/mail-exchange-record-what-to-put-for-your-mx-record
+ * 
  */
 public final class SendEmailUtil {
     private static final Logger log = LoggerFactory.getLogger(SendMailDemo.class);
