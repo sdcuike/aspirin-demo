@@ -128,7 +128,9 @@ public final class SendEmailUtil {
     private static Properties getConfig(Properties properties) {
         Properties prop = System.getProperties();
         prop.setProperty(mail_mime_charset, "UTF-8");
-        prop.setProperty(mail_smtp_debug, "true");
+        if (log.isDebugEnabled()) {
+            prop.setProperty(mail_smtp_debug, "true");
+        }
         prop.setProperty(mail_smtp_timeout, "30000");
         prop.setProperty(mail_smtp_connectiontimeout, "30000");
         prop.setProperty(mail_smtp_localhost, "doctorwho.com");
