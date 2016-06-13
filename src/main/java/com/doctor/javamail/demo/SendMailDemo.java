@@ -67,11 +67,11 @@ public class SendMailDemo {
         String nickName = "神秘博士";
         // 设置Chinese nickname @see http://www.programmershare.com/2703983/
         InternetAddress sender = new InternetAddress(MimeUtility.encodeText(nickName) + " <doctorwho@doctorwho.com>");
-        mimeMessage.setSender(sender);
+        // mimeMessage.setSender(sender);
         mimeMessage.setFrom(sender);
 
         // mimeMessage.setRecipient(RecipientType.CC, new InternetAddress("xx@-ec.com"));
-        mimeMessage.setRecipient(RecipientType.TO, new InternetAddress("java@xxx.com"));
+        mimeMessage.setRecipient(RecipientType.TO, new InternetAddress("xx@qq.com"));
         mimeMessage.setReplyTo(new Address[] { sender });
         mimeMessage.setText(htmlbody, "utf-8", "html");
         Pair<Boolean, String> result = SendEmailUtil.sendMail(mimeMessage, session);

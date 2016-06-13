@@ -1,5 +1,6 @@
 package com.doctor.javamail.util;
 
+import javax.mail.Address;
 import javax.mail.MessagingException;
 import javax.mail.Session;
 import javax.mail.internet.MimeMessage;
@@ -22,6 +23,15 @@ public class MimeMessageExtend extends MimeMessage {
     @Override
     protected void updateMessageID() throws MessagingException {
 
+    }
+
+    /**
+     * 邮件真实发送地址与邮件宣称的地址不一样如何解决:setSender /setFrom设置同一地址，不同则会出现上述文档所说内容
+     */
+    @Override
+    public void setFrom(Address address) throws MessagingException {
+        super.setFrom(address);
+        super.setSender(address);
     }
 
 }

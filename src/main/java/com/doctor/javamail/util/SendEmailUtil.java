@@ -37,6 +37,7 @@ import com.sun.mail.smtp.SMTPTransport;
  *
  *         Create At 2016年6月8日 下午3:29:39
  * 
+ *         https://javamail.java.net/nonav/docs/api/com/sun/mail/smtp/package-summary.html
  *         https://tools.ietf.org/html/rfc5321
  *         https://tools.ietf.org/html/rfc822#section-3.2
  * 
@@ -102,6 +103,11 @@ public final class SendEmailUtil {
                         props.put("mail.smtp.from", "<>");
                     } else {
                         String sender = message.getSender().toString();
+                        // com.sun.mail.smtp.SMTPSendFailedException: 555 5.5.4 Unsupported option: <doctorwho@doctorwho.com>去掉昵称 aol邮箱是这样的
+                        int index = sender.lastIndexOf("<");
+                        if (index > 0) {
+                            sender = sender.substring(index, sender.length());
+                        }
                         props.put("mail.smtp.from", sender);
                     }
 
