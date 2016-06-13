@@ -66,13 +66,13 @@ public class SendMailDemo {
         // 邮件真实发送地址与邮件宣称的地址不一样如何解决:setSender /setFrom设置同一地址，不同则会出现上述文档所说内容
         String nickName = "神秘博士";
         // 设置Chinese nickname @see http://www.programmershare.com/2703983/
-        InternetAddress sender = new InternetAddress(MimeUtility.encodeText(nickName) + " <doctor@aol.com>");
+        InternetAddress sender = new InternetAddress(MimeUtility.encodeText(nickName) + " <doctorwho@doctorwho.com>");
         mimeMessage.setSender(sender);
         mimeMessage.setFrom(sender);
 
         // mimeMessage.setRecipient(RecipientType.CC, new InternetAddress("xx@-ec.com"));
-        mimeMessage.setRecipient(RecipientType.TO, new InternetAddress("xxxx"));
-        mimeMessage.setReplyTo(new Address[] { new InternetAddress("xxx@qq.com") });
+        mimeMessage.setRecipient(RecipientType.TO, new InternetAddress("java@xxx.com"));
+        mimeMessage.setReplyTo(new Address[] { sender });
         mimeMessage.setText(htmlbody, "utf-8", "html");
         Pair<Boolean, String> result = SendEmailUtil.sendMail(mimeMessage, session);
         System.out.println("send result:" + result);
