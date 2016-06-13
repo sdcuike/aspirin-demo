@@ -1,5 +1,6 @@
 package com.doctor.javamail.demo;
 
+import java.util.Locale;
 import java.util.Properties;
 import java.util.UUID;
 
@@ -10,8 +11,14 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeUtility;
 
+import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
+
 import com.doctor.javamail.util.Pair;
 import com.doctor.javamail.util.SendEmailUtil;
+
+import freemarker.template.Configuration;
+import freemarker.template.TemplateExceptionHandler;
+import freemarker.template.Version;
 
 /**
  * 发送邮件，毫无限制
@@ -33,6 +40,22 @@ public class SendMailDemo {
 
     public static void main(String[] args) throws Throwable {
 
+        // 1. Configure FreeMarker
+        //
+        // You should do this ONLY ONCE, when your application starts,
+        // then reuse the same Configuration object elsewhere.
+
+        Configuration cfg = new Configuration(new Version("2.3.23"));
+        // Where do we load the templates from:
+        cfg.setClassLoaderForTemplateLoading(SendMailDemo.class.getClassLoader(), "templates");
+
+        // Some other recommended settings:
+        cfg.setDefaultEncoding("UTF-8");
+        cfg.setLocale(Locale.CHINA);
+        cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
+
+        String htmlbody = FreeMarkerTemplateUtils.processTemplateIntoString(cfg.getTemplate("t.ftl"), new Object());
+
         Properties properties = new Properties();
         Session session = SendEmailUtil.getSession(properties);
         MimeMessage mimeMessage = SendEmailUtil.createMimeMessage();
@@ -48,9 +71,9 @@ public class SendMailDemo {
         mimeMessage.setFrom(sender);
 
         // mimeMessage.setRecipient(RecipientType.CC, new InternetAddress("xx@-ec.com"));
-        mimeMessage.setRecipient(RecipientType.TO, new InternetAddress("303286730@qq.com"));
+        mimeMessage.setRecipient(RecipientType.TO, new InternetAddress("xxxx"));
         mimeMessage.setReplyTo(new Address[] { new InternetAddress("xxx@qq.com") });
-        mimeMessage.setText("端午颂诉着古老的传说，粽子包裹着古老的风俗，艾叶凝聚着神秘的色彩，屈原坚守着民族的气节，让我们记住特殊的日子，时刻提醒勉励自己，幸福生活，努力工作，开心每一天。 from:老崔 ", "utf-8");
+        mimeMessage.setText(htmlbody, "utf-8", "html");
         Pair<Boolean, String> result = SendEmailUtil.sendMail(mimeMessage, session);
         System.out.println("send result:" + result);
     }
