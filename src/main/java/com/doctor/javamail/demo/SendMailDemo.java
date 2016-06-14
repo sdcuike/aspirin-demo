@@ -2,7 +2,6 @@ package com.doctor.javamail.demo;
 
 import java.util.Locale;
 import java.util.Properties;
-import java.util.UUID;
 
 import javax.mail.Address;
 import javax.mail.Message.RecipientType;
@@ -11,8 +10,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeUtility;
 
-import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
-
+import com.doctor.javamail.util.FreeMarkerTemplateUtil;
 import com.doctor.javamail.util.Pair;
 import com.doctor.javamail.util.SendEmailUtil;
 
@@ -54,13 +52,11 @@ public class SendMailDemo {
         cfg.setLocale(Locale.CHINA);
         cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
 
-        String htmlbody = FreeMarkerTemplateUtils.processTemplateIntoString(cfg.getTemplate("t.ftl"), new Object());
+        String htmlbody = FreeMarkerTemplateUtil.processTemplateIntoString(cfg.getTemplate("t.ftl"), new Object());
 
         Properties properties = new Properties();
         Session session = SendEmailUtil.getSession(properties);
         MimeMessage mimeMessage = SendEmailUtil.createMimeMessage();
-        // Message-ID: <597255128.0.1465725132963.JavaMail.doctor@doctorwho-MacBook-Pro.local> 会暴露你的个人信息，请修改机器hostname和用户名
-        mimeMessage.setHeader("Message-ID", UUID.randomUUID().toString());
         mimeMessage.setSubject("The late blessing");
 
         // 邮件真实发送地址与邮件宣称的地址不一样如何解决:setSender /setFrom设置同一地址，不同则会出现上述文档所说内容
@@ -71,7 +67,7 @@ public class SendMailDemo {
         mimeMessage.setFrom(sender);
 
         // mimeMessage.setRecipient(RecipientType.CC, new InternetAddress("xx@-ec.com"));
-        mimeMessage.setRecipient(RecipientType.TO, new InternetAddress("xx@qq.com"));
+        mimeMessage.setRecipient(RecipientType.TO, new InternetAddress("sdcuike@aol.com"));
         mimeMessage.setReplyTo(new Address[] { sender });
         mimeMessage.setText(htmlbody, "utf-8", "html");
         Pair<Boolean, String> result = SendEmailUtil.sendMail(mimeMessage, session);

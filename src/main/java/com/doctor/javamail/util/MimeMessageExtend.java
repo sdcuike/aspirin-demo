@@ -22,7 +22,7 @@ public class MimeMessageExtend extends MimeMessage {
 
     @Override
     protected void updateMessageID() throws MessagingException {
-
+        setHeader("Message-ID", "<" + UniqueValueUti.getUniqueMessageIDValue() + ">");
     }
 
     /**
