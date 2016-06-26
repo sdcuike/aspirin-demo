@@ -30,7 +30,7 @@ public class DnsjavaExamples {
         // Get the MX target and preference of a name:
         System.out.println("====Get the MX target and preference of a name:");
 
-        Record[] records = new Lookup("gmail.com", Type.MX).run();
+        Record[] records = new Lookup("qq.com", Type.MX).run();
         for (Record record : records) {
             MXRecord mxRecord = (MXRecord) record;
             System.out.println("Host:" + mxRecord.getTarget() + " has preference " + mxRecord.getPriority());

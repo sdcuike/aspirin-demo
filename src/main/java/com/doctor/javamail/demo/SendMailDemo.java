@@ -67,7 +67,7 @@ public class SendMailDemo {
         mimeMessage.setFrom(sender);
 
         // mimeMessage.setRecipient(RecipientType.CC, new InternetAddress("xx@-ec.com"));
-        mimeMessage.setRecipient(RecipientType.TO, new InternetAddress("sdcuike@aol.com"));
+        mimeMessage.setRecipient(RecipientType.TO, new InternetAddress("sdckx@foxmail.com"));
         mimeMessage.setReplyTo(new Address[] { sender });
         mimeMessage.setText(htmlbody, "utf-8", "html");
         Pair<Boolean, String> result = SendEmailUtil.sendMail(mimeMessage, session);
